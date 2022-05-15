@@ -1,12 +1,14 @@
 <?php
 require('../config/config.php');
 require('../lib/vendor/autoload.php');
-// getting all fields from the json sent.
+// obtendo todos os campos do json enviados.
 /*
-SAND_TOKEN global variable defined in config file in /config/config.php directory
+SAND_TOKEN definida no arquivo de configuração no diretório /config/config.php
 */
 $data = json_decode(file_get_contents('php://input'), true);
+
 //MercadoPago\SDK from php composer.phar require "mercadopago/dx-php"
+
 MercadoPago\SDK::setAccessToken(PROD_TOKEN);
 
 $data = ($_POST);

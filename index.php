@@ -1,4 +1,8 @@
 <?php
+
+
+
+//Isso é apenas um teste para pagamento Smart Com MercadoPago
 $total = "1";
 $curl = curl_init();
 curl_setopt_array($curl, array(
@@ -55,85 +59,86 @@ echo $response_smart;
                     </script>
                 </div>
             </div>
-                <form id="form-checkout" class="row m-5">
-                    <div class="text-center">
-                        <div class="col-12 mb-3">
-                            <div class="display-6">
-                                <p>Checkout Transparente</p>
-                                <img src="./img/mercadopago.png" alt="" style="width: 25%;">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-9 form-group mb-3">
-                        <label>Número do cartão</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="cardNumber" id="form-checkout__cardNumber" />
-                            <span class="input-group-text" id="basic-addon1">
-                                <i class="fas fa-credit-card" id="icon-card"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 form-group mb-3">
-                        <label>CVV</label>
-                        <input type="text" class="form-control" name="securityCode" id="form-checkout__securityCode" />
-                    </div>
-                    <div class="col-12 col-md-4 form-group mb-3">
-                        <label>Mês Vencimento</label>
-                        <input type="text" class="form-control" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-                    </div>
-                    <div class="col-12 col-md-4 form-group mb-3">
-                        <label>Ano Vencimento</label>
-                        <input type="text" class="form-control" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
-                    </div>
-                    <div class="col-12 col-md-4 form-group mb-3">
-                        <label>Bandeira</label>
-                        <select name="issuer" class="form-control" id="form-checkout__issuer">
-                            <option>Selecionar</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <div class="col-12 col-md-6 form-group mb-3">
-                        <label>Nome Completo</label>
-                        <input type="text" class="form-control" name="cardholderName" id="form-checkout__cardholderName" />
-                    </div>
-                    <div class="col-12 col-md-6 form-group mb-3">
-                        <label>E-mail</label>
-                        <input type="email" name="cardholderEmail" class="form-control" id="form-checkout__cardholderEmail" />
-                    </div>
-                    <div class="col-12 col-md-5 form-group mb-3">
-                        <label>Documento</label>
-                        <select name="identificationType" class="form-control" id="form-checkout__identificationType">
-                            <option>Selecionar</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-7 form-group mb-3">
-                        <label>Número documento</label>
-                        <input type="text" class="form-control" name="identificationNumber" id="form-checkout__identificationNumber" />
-                    </div>
-                    <hr>
-                    <div class="col-12 col-md-5 form-group mb-3">
-                        <label>Parcelas</label>
-                        <select name="installments" class="form-control" id="form-checkout__installments">
-                            <option>Selecionar</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-10" id="form-checkout__submit">Pagar</button>
-                </form>
-                <div class="jumbotron" id="jumbotron" style="display: none;">
-                    <p class="lead" id="message_status">TEXTO_MENSAGEM_STATUS_PAGAMENTO</p>
-                    <hr class="my-4">
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" onclick="window.history.back()" role="button">Voltar para
-                            inicio</a>
-                    </p>
-                </div>
+            <form id="form-checkout" class="row m-5">
                 <div class="text-center">
-                    <p style="margin-bottom: 0px">Acessar Repositório</p>
-                    <a href="https://github.com/AndyTargino/MercadoPago-API">
-                        <img src="./img/github.png" alt="" style="width: 10%;">
-                    </a>
+                    <div class="col-12 mb-3">
+                        <div class="display-6">
+                            <p>Checkout Transparente</p>
+                            <img src="./img/mercadopago.png" alt="" style="width: 25%;">
+                        </div>
+                    </div>
                 </div>
-                <!--<div id="boleto" class="text-center">
+                <div class="col-12 col-md-9 form-group mb-3">
+                    <label>Número do cartão</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="cardNumber" id="form-checkout__cardNumber" />
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-credit-card" id="icon-card"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 form-group mb-3">
+                    <label>CVV</label>
+                    <input type="text" class="form-control" name="securityCode" id="form-checkout__securityCode" />
+                </div>
+                <div class="col-12 col-md-4 form-group mb-3">
+                    <label>Mês Vencimento</label>
+                    <input type="text" class="form-control" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+                </div>
+                <div class="col-12 col-md-4 form-group mb-3">
+                    <label>Ano Vencimento</label>
+                    <input type="text" class="form-control" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+                </div>
+                <div class="col-12 col-md-4 form-group mb-3">
+                    <label>Bandeira</label>
+                    <select name="issuer" class="form-control" id="form-checkout__issuer">
+                        <option>Selecionar</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="col-12 col-md-6 form-group mb-3">
+                    <label>Nome Completo</label>
+                    <input type="text" class="form-control" name="cardholderName" id="form-checkout__cardholderName" />
+                </div>
+                <div class="col-12 col-md-6 form-group mb-3">
+                    <label>E-mail</label>
+                    <input type="email" name="cardholderEmail" class="form-control" id="form-checkout__cardholderEmail" />
+                </div>
+                <div class="col-12 col-md-5 form-group mb-3">
+                    <label>Documento</label>
+                    <select name="identificationType" class="form-control" id="form-checkout__identificationType">
+                        <option>Selecionar</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-7 form-group mb-3">
+                    <label>Número documento</label>
+                    <input type="text" class="form-control" name="identificationNumber" id="form-checkout__identificationNumber" />
+                </div>
+                <hr>
+                <div class="col-12 col-md-5 form-group mb-3">
+                    <label>Parcelas</label>
+                    <select name="installments" class="form-control" id="form-checkout__installments">
+                        <option>Selecionar</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-10" id="form-checkout__submit">Pagar</button>
+            </form>
+            <div class="jumbotron" id="jumbotron" style="display: none;">
+                <p class="lead" id="message_status">TEXTO_MENSAGEM_STATUS_PAGAMENTO</p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" onclick="window.history.back()" role="button">Voltar para
+                        inicio</a>
+                </p>
+            </div>
+            <div class="text-center">
+                <p style="margin-bottom: 0px">Acessar Repositório</p>
+                <a href="https://github.com/AndyTargino/MercadoPago-API">
+                    <img src="./img/github.png" alt="" style="width: 10%;">
+                </a>
+            </div>
+            <!--Pagamento por boleto ainda não implementado-->
+            <!-- <div id="boleto" class="text-center">
                     <div class="card-body">
                         <h5>Gerar Boleto para pagamento</h5>
                         <button type="submit" class="btn btn-primary w-10">Gerar Boleto</button>
@@ -143,12 +148,13 @@ echo $response_smart;
                         </button>
                     </div>
                 </div>-->
-            </div>
         </div>
+    </div>
     </div>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 </body>
 <link href="fontawesome-free/css/all.min.css" rel="stylesheet">
+
 </html>
 <script>
     const KEY = 'TEST-f424cfbd-32b8-4374-9c06-a2fada5b239e'
@@ -201,16 +207,15 @@ echo $response_smart;
                 },
             },
             callbacks: {
-                //can you see all callbacks in https://github.com/mercadopago/sdk-js
+                //você pode ver todos os retornos de chamada em https://github.com/mercadopago/sdk-js
                 onFormMounted: error => {
-                    // checking if form exist
+                    //verificando se o formulário existe
                     if (error) return console.warn("Form Mounted handling error: ", error);
                     console.log("Form mounted");
                 },
                 onPaymentMethodsReceived: (error, paymentMethods) => {
-                    //checking card flag and placing corresponding logo
+                    //verificando a bandeira do cartão e colocando o logotipo correspondente
                     if (error) return console.warn('paymentMethods handling error: ', error)
-                    // console.log('Payment Methods available: ', paymentMethods[0].thumbnail)
                     const span = doc.getElementById('basic-addon1')
                     const icon_card = doc.getElementById('icon-card')
                     const img = doc.createElement('img')
@@ -219,10 +224,9 @@ echo $response_smart;
                     img.style.height = 30
                     img.className = "img-thumbnail"
                     span.appendChild(img)
-                    // <img src="..." alt="..." class="img-thumbnail">
                 },
                 /*
-                uncomment the line if you want to see how the card token is being encrypted
+                descomente a linha se quiser ver como o token do cartão está sendo criptografado
                 */
                 // onCardTokenReceived: (error, token) => {
                 //     if (error) return console.warn('Token handling error: ', error)
@@ -240,39 +244,33 @@ echo $response_smart;
                         identificationNumber,
                         identificationType,
                     } = cardForm.getCardFormData();
-                    // getCardFormData this function make encryption of form
+                    // getCardFormData faz a criptografia do formulário
                     /*
-                    later we send the json with date of form to we back-end where will be process the informations
+                    posteriormente enviamos o json com data do formulário para o back-end onde serão processadas as informações
                     */
-                    fetch("/controllers/paymentController.php", {
+                    fetch("/controllers/cardController.php", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            token, //number card + security code encryption, the function onCardTokenReceived do this ,
-                            issuer_id, //id user payment (is randomic, don't horry)
-                            payment_method_id, //card flag, don't worry the onPaymentMethodsReceived function will do it for you
-                            transaction_amount: Number(amount), //value product
-                            installments: Number(installments), //number of installments, amount of installments, data taken from the text box installments
-                            description: "Mochila Tony Stark", //description prodct
+                            token, //cartão de número + criptografia de código de segurança, a função onCardTokenReceived faz isso ,
+                            issuer_id, //id do pagamento do usuário  (é aleatório, não se preocupe)
+                            payment_method_id, //bandeira do cartão, não se preocupe, a função onPaymentMethodsReceived fará isso por você
+                            transaction_amount: Number(amount), //Valor do produto
+                            installments: Number(installments), //número de parcelas, quantidade de parcelas, dados retirados da caixa de texto parcelas
+                            description: "Produro 001", //Descrição do produto
                             payer: {
                                 email,
                                 identification: {
                                     type: identificationType,
                                     number: identificationNumber,
                                 },
-                            }, //payer information
+                            }, //Informações de pagamento
                         }),
                     }).then((response) => {
-                        // if the backend responds Ok we print a message on the screen
-                        const message_status = doc.getElementById('message_status')
-                        const jumbotron = doc.getElementById('jumbotron')
-                        const form_checkout = doc.getElementById('form-checkout')
-                        // stores response.id in the database
-                        message_status.innerText = `Pagamento feito com sucesso`
-                        form_checkout.style.display = 'none'
-                        jumbotron.style.display = 'block'
+                        // se o backend responder Ok imprimimos uma mensagem no console com os dados retornados do backend
+                        console.log(response)
                     }).catch((error) => {
                         console.error(error)
                         alert('Não foi possível completar sua solicitação')
