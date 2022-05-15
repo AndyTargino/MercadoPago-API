@@ -23,11 +23,17 @@ $payment->payer = $payer;
 
 //O método save envia as informações de pagamento para o mercado pago e retorna um objeto com o status do pagamento
 $payment->save();
-$response = array(
-    'status' => $payment->status,
-    'status_detail' => $payment->status_detail,
-    'id' => $payment->id
-);
 
-//Retornar a resposta para o front
-echo json_encode($response);
+//Após o envio da request e obter sua resposta, mostre para o usuario os dados de retorno nessessários para salvar no banco também
+$formated_total = "R$ " . number_format($data['transaction_amount'], 2, ',', '.');
+$status_pagamento = $payment->status;
+if ($status_pagamento == 'approved' && $status_pagamento  == 'in_process') {
+    $status = 'Em processamento';
+    $msg = "<p>Obrigado, <strong>" . $data['payer']['primeiro_nome'] . "</strong>!</p> <p>O status atual do seu pagamento via <strong>Cartao de Credito</strong> é <strong>" . $status_pagamento . "</strong> e o código da transação junto ao MercadoPago é <strong>" . $id . "</strong>.</p> <p>O valor total é de <strong>" . $formated_total . "</strong>.</p>";;
+    $response = (['status' => $status, 'status_detail' => $payment->status_detail, 'id' => $payment->id, 'mensagem' => $msg]);
+    echo json_encode($response);
+} else {
+    $msg = "<p>Ocorreu um erro ao finalizar pagamento.</p>";
+    $response = (['status' => 'error', 'mensagem' => $msg]);
+    echo json_encode($response);
+}

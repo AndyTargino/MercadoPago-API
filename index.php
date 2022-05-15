@@ -1,25 +1,3 @@
-<?php
-
-
-
-//Isso é apenas um teste para pagamento Smart Com MercadoPago
-$total = "1";
-$curl = curl_init();
-curl_setopt_array($curl, array(
-    CURLOPT_URL => '/controllers/smartController.php',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_POSTFIELDS => (['amount' => $total, 'produto' => "Produto Teste"]),
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-));
-$response_smart = curl_exec($curl);
-curl_close($curl);
-echo $response_smart;
-?>
 <html lang="pt-br">
 
 <head>
@@ -29,8 +7,12 @@ echo $response_smart;
     <link rel="shortcut icon" href="favicon.ico" />
     <title>Pagamento Mercado Pago</title>
     <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -44,16 +26,15 @@ echo $response_smart;
                     <button type="button" class="btn btn-primary" onclick="boletoModal()" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin: 0px 15px 0px 15px;">
                         Pagamento via Boleto
                     </button>
-                    <script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-button-label="Pagar com Mercado Pago" data-preference-id="<?php echo $response_smart; ?>">
-                    </script>
+                    <div id="smartPayment"></div>
                     <script>
                         function cartaoModal() {
-                            //document.querySelector('#boleto').hidden = true;
+                            document.getElementById('boleto').hidden = true;
                             document.getElementById("form-checkout").hidden = false;
                         }
 
                         function boletoModal() {
-                            //document.querySelector('#boleto').hidden = false;
+                            document.getElementById('boleto').hidden = false;
                             document.getElementById('form-checkout').hidden = true;
                         }
                     </script>
@@ -121,39 +102,45 @@ echo $response_smart;
                         <option>Selecionar</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary w-10" id="form-checkout__submit">Pagar</button>
+                <button type="submit" class="btn btn-primary w-100" id="form-checkout__submit">Pagar</button>
             </form>
-            <div class="jumbotron" id="jumbotron" style="display: none;">
-                <p class="lead" id="message_status">TEXTO_MENSAGEM_STATUS_PAGAMENTO</p>
-                <hr class="my-4">
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" onclick="window.history.back()" role="button">Voltar para
-                        inicio</a>
-                </p>
+            <div id="boleto" class="text-center" hidden>
+                <div class="card-body">
+                    <h5>Gerar Boleto para pagamento</h5>
+                    <img src="./img/boleto.png" style="width: 8%;">
+                    <button id="boleto_pay" onclick="gerarBoleto()" class="btn btn-primary w-10">
+                        <span id="boleto_generate_true">Gerar Boleto</span>
+                    </button>
+                </div>
             </div>
             <div class="text-center">
                 <p style="margin-bottom: 0px">Acessar Repositório</p>
                 <a href="https://github.com/AndyTargino/MercadoPago-API">
-                    <img src="./img/github.png" alt="" style="width: 10%;">
+                    <img src="./img/github.png" style="width: 10%;">
                 </a>
             </div>
-            <!--Pagamento por boleto ainda não implementado-->
-            <!-- <div id="boleto" class="text-center">
-                    <div class="card-body">
-                        <h5>Gerar Boleto para pagamento</h5>
-                        <button type="submit" class="btn btn-primary w-10">Gerar Boleto</button>
-                        <button class="btn btn-primary" type="button" disabled hidden>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            <span class="sr-only">Gerando...</span>
-                        </button>
-                    </div>
-                </div>-->
         </div>
     </div>
+
+    <button id="button_click" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" hidden></button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Mensagem do Sistema</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="mensagens_sistema_body" class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
 </body>
-<link href="fontawesome-free/css/all.min.css" rel="stylesheet">
 
 </html>
 <script>
@@ -211,7 +198,7 @@ echo $response_smart;
                 onFormMounted: error => {
                     //verificando se o formulário existe
                     if (error) return console.warn("Form Mounted handling error: ", error);
-                    console.log("Form mounted");
+                    //console.log("Form mounted");
                 },
                 onPaymentMethodsReceived: (error, paymentMethods) => {
                     //verificando a bandeira do cartão e colocando o logotipo correspondente
@@ -249,34 +236,99 @@ echo $response_smart;
                     posteriormente enviamos o json com data do formulário para o back-end onde serão processadas as informações
                     */
                     fetch("/controllers/cardController.php", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            token, //cartão de número + criptografia de código de segurança, a função onCardTokenReceived faz isso ,
-                            issuer_id, //id do pagamento do usuário  (é aleatório, não se preocupe)
-                            payment_method_id, //bandeira do cartão, não se preocupe, a função onPaymentMethodsReceived fará isso por você
-                            transaction_amount: Number(amount), //Valor do produto
-                            installments: Number(installments), //número de parcelas, quantidade de parcelas, dados retirados da caixa de texto parcelas
-                            description: "Produro 001", //Descrição do produto
-                            payer: {
-                                email,
-                                identification: {
-                                    type: identificationType,
-                                    number: identificationNumber,
-                                },
-                            }, //Informações de pagamento
-                        }),
-                    }).then((response) => {
-                        // se o backend responder Ok imprimimos uma mensagem no console com os dados retornados do backend
-                        console.log(response)
-                    }).catch((error) => {
-                        console.error(error)
-                        alert('Não foi possível completar sua solicitação')
-                    });
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                token, //cartão de número + criptografia de código de segurança, a função onCardTokenReceived faz isso ,
+                                issuer_id, //id do pagamento do usuário  (é aleatório, não se preocupe)
+                                payment_method_id, //bandeira do cartão, não se preocupe, a função onPaymentMethodsReceived fará isso por você
+                                transaction_amount: Number(amount), //Valor do produto
+                                installments: Number(installments), //número de parcelas, quantidade de parcelas, dados retirados da caixa de texto parcelas
+                                description: "Produro 001", //Descrição do produto
+                                payer: {
+                                    email,
+                                    identification: {
+                                        type: identificationType,
+                                        number: identificationNumber,
+                                    },
+                                }, //Informações de pagamento
+                            }),
+                        }).then(response => response.text())
+                        .then((result) => {
+                            response = JSON.parse(result)
+                            console.log(response.id)
+                            document.getElementById('mensagens_sistema_body').innerHTML = response.mensagem
+                            document.getElementById('button_click').click()
+                        }).catch(error => console.log('error', error));
                 },
             },
         });
     })(window, document)
+</script>
+<script>
+    function gerarBoleto() {
+
+        //Dados Para Boleto
+        var email = "teste@gmail.com";
+        var first_name = "Joao";
+        var last_name = "Silva";
+        var identificationType = 'cpf'
+        var identificationNumber = '19063678096';
+        var amount = "5.00";
+
+        var botaoBoleto = document.getElementById('boleto_pay')
+        botaoBoleto.disabled = true
+        botaoBoleto.innerHTML = "Gerando Boleto..."
+        fetch("/controllers/boletoController.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    transaction_amount: Number(amount),
+                    description: "Pesquisa 001",
+                    payer: {
+                        email,
+                        first_name,
+                        last_name,
+                        identification: {
+                            type: identificationType,
+                            number: identificationNumber,
+                        },
+                    },
+                }),
+            })
+            .then(response => response.text())
+            .then((result) => {
+                response = JSON.parse(result)
+                document.getElementById('mensagens_sistema_body').innerHTML = response.mensagem
+                document.getElementById('button_click').click()
+                botaoBoleto.disabled = false
+                botaoBoleto.innerHTML = "Gerar Boleto"
+            })
+            .catch(error => console.log('error', error));
+    }
+</script>
+<script>
+    //Criar botao de pagamento Smart/checkout Pro
+    var formdata = new FormData();
+    formdata.append("amount", "1");
+    formdata.append("produto", "Produto 001");
+    var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+    fetch("https://devspace.com/controllers/smartController.php", requestOptions)
+        .then(response => response.text())
+        .then((result) => {
+            var my_awesome_script = document.createElement('script');
+            my_awesome_script.setAttribute('src', 'https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js');
+            my_awesome_script.setAttribute('data-button-label', 'Pagar com Mercado Pago');
+            my_awesome_script.setAttribute('data-preference-id', result)
+            document.getElementById('smartPayment').appendChild(my_awesome_script);
+        })
+        .catch(error => console.log('error', error));
 </script>
