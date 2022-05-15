@@ -2,7 +2,7 @@
 ### API desenvolvida utilizando o repositório do [MercadoPago](https://www.mercadopago.com.br/developers/pt) com facilidade para implementação em sistemas PHP puro.
 
 
-
+<br><br><br>
 
 ## Funcionalidades disponiveis:
 ##### 1 - Checkout Transparente
@@ -11,9 +11,11 @@
 ##### 4 - Pagamento Smart
 
 
-
+<br><br><hr>
 ### 1 - Checkout Transparente:
-<img src="https://user-images.githubusercontent.com/84283346/168401847-cfc76c42-4a25-4033-88f2-7ae58acee40c.png" width="500" height="450"/>
+
+
+<img src="https://user-images.githubusercontent.com/84283346/168483862-83ce686a-13b1-4123-b6a9-7616c658a369.png" width="350" height="300" border="1px solid red"/>
 
 <div>
   <p>Checkout Transparente consiste em implementar o sistema de pagamento</p>
@@ -23,9 +25,9 @@
 </div>
 
 
-
+<br><hr>
 ### 2 - Gerar Boleto:
-<img src="https://user-images.githubusercontent.com/84283346/168483139-be5f83c3-2d1d-427c-926f-a2a382d4f5f5.png" width="500" height="350"/>
+<img src="https://user-images.githubusercontent.com/84283346/168483139-be5f83c3-2d1d-427c-926f-a2a382d4f5f5.png" width="300" height="200"/>
 <div>
   <p>A funcionalidade de gerar boletos para pagamento também está implementada no sistema.</p>
   <p>Através do pagamendo via boleto você pode Gerar boleto e encaminhar</p>
@@ -34,7 +36,7 @@
 </div>
 
 
-
+<br><hr>
 ### 3 - Pagamento Smart:
 <img src="https://user-images.githubusercontent.com/84283346/168482955-4bdf12e9-c2fe-47eb-bf7a-f221871ac71a.png" width="500" height="320"/>
 <div>
