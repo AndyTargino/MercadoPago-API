@@ -14,6 +14,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /*use flexbox to centered element*/
+    div.wrapper {
+        width: 100%;
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1.brand {
+        font-size: 40px;
+    }
+
+    h1.brand span:nth-child(1) {
+        background-color: transparent;
+        color: #0074b4;
+    }
+
+    h1.brand span:nth-child(2) {
+        background-color: #0074b4;
+        color: #f3f2ef;
+        padding: 0px 6px;
+        margin-left: -6px;
+        border-radius: 2px;
+    }
+
+    div.loading-bar {
+        width: 100px;
+        height: 2px;
+        background-color: #d6cec2;
+        border-radius: 10px;
+        margin-top: 25px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    div.loading-bar::after {
+        content: '';
+        width: 50px;
+        height: 2px;
+        position: absolute;
+        background-color: #0074b4;
+        transform: translateX(-20px);
+        animation: loop 2s ease infinite;
+    }
+
+    @keyframes loop {
+
+        0%,
+        100% {
+            transform: translateX(-28px);
+        }
+
+        50% {
+            transform: translateX(78px)
+        }
+    }
+</style>
 
 <body>
     <div class="d-flex justify-content-center">
@@ -21,21 +90,33 @@
             <div class="card-body">
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-primary" onclick="cartaoModal()" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin: 0px 15px 0px 15px;">
-                        Pagamento via Cartão
+                        Cartão
                     </button>
                     <button type="button" class="btn btn-primary" onclick="boletoModal()" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin: 0px 15px 0px 15px;">
-                        Pagamento via Boleto
+                        Boleto
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="pixModal()" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin: 0px 15px 0px 15px;">
+                        PIX
                     </button>
                     <div id="smartPayment"></div>
                     <script>
                         function cartaoModal() {
                             document.getElementById('boleto').hidden = true;
+                            document.getElementById('pix').hidden = true;
                             document.getElementById("form-checkout").hidden = false;
                         }
 
                         function boletoModal() {
                             document.getElementById('boleto').hidden = false;
+                            document.getElementById('pix').hidden = true;
                             document.getElementById('form-checkout').hidden = true;
+                        }
+
+                        function pixModal() {
+                            document.getElementById('boleto').hidden = true;
+                            document.getElementById('pix').hidden = false;
+                            document.getElementById('form-checkout').hidden = true;
+                            gerarPix();
                         }
                     </script>
                 </div>
@@ -111,6 +192,18 @@
                     <button id="boleto_pay" onclick="gerarBoleto()" class="btn btn-primary w-10">
                         <span id="boleto_generate_true">Gerar Boleto</span>
                     </button>
+                </div>
+            </div>
+            <div id="pix" class="text-center" hidden>
+                <div class="card-body">
+                    <h5>Pix para pagamento</h5>
+                    <div class="wrapper" id="loadingPix">
+                        <h1 class="brand">
+                            <span>Gerando PIX</span>
+                        </h1>
+                        <div class="loading-bar"></div>
+                    </div>
+                    <div id="qrcode"></div>
                 </div>
             </div>
             <div class="text-center">
@@ -331,4 +424,25 @@
             document.getElementById('smartPayment').appendChild(my_awesome_script);
         })
         .catch(error => console.log('error', error));
+</script>
+<script>
+    function gerarPix() {
+
+        var formdata = new FormData();
+        var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch("https://devspace.com/controllers/pixController.php", requestOptions)
+            .then(response => response.text())
+            .then((result) => {
+
+                document.getElementById('loadingPix').hidden = true;
+                var pix = document.getElementById('qrcode')
+                pix.innerHTML = result;
+            })
+            .catch(error => console.log('error', error));
+    }
 </script>
