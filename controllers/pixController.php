@@ -28,7 +28,16 @@ $payment->payer = array(
 );
 
 $payment->save();
+echo '
+<img style="width: 30%;"src="data:image/png;base64, ' . $payment->point_of_interaction->transaction_data->qr_code_base64 . '" alt="Pix"><br>
 
-echo  "<img style='width: 30%;'src='data:image/png;base64, ".$payment->point_of_interaction->transaction_data->qr_code_base64."' alt='Pix'>"
+<div class="text-center">
+  <input type="text" class="form-control" id="texto" value=' . $payment->point_of_interaction->transaction_data->qr_code . ' aria-describedby="basic-addon2">
+  <div class="">
+    <button class="btn btn-outline-primary" onclick="copiarTexto()" type="button">Copiar Chave PIX</button>
+  </div>
+</div>
+
+';
 
 ?>
