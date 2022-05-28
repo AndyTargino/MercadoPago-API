@@ -12,19 +12,7 @@ $payment->payment_method_id = "pix";
 $payment->payer = array(
     "email" => "test@test.com",
     "first_name" => "Test",
-    "last_name" => "User",
-    "identification" => array(
-        "type" => "CPF",
-        "number" => "19119119100"
-    ),
-    "address" =>  array(
-        "zip_code" => "06233200",
-        "street_name" => "Av. das Nações Unidas",
-        "street_number" => "3003",
-        "neighborhood" => "Bonfim",
-        "city" => "Osasco",
-        "federal_unit" => "SP"
-    )
+    "last_name" => "User"
 );
 
 $payment->save();

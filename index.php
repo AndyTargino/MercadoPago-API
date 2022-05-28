@@ -1,3 +1,5 @@
+
+
 <html lang="pt-br">
 
 <head>
@@ -343,7 +345,7 @@
                                 payment_method_id, //bandeira do cartão, não se preocupe, a função onPaymentMethodsReceived fará isso por você
                                 transaction_amount: Number(amount), //Valor do produto
                                 installments: Number(installments), //número de parcelas, quantidade de parcelas, dados retirados da caixa de texto parcelas
-                                description: "Produro 001", //Descrição do produto
+                                description: "Produto 001", //Descrição do produto
                                 payer: {
                                     email,
                                     identification: {
@@ -370,11 +372,10 @@
         //Dados Para Boleto
         var email = "teste@gmail.com";
         var first_name = "Joao";
-        var last_name = "Silva";
+        var last_name = "da Silva";
         var identificationType = 'cpf'
         var identificationNumber = '19063678096';
         var amount = "5.00";
-
         var botaoBoleto = document.getElementById('boleto_pay')
         botaoBoleto.disabled = true
         botaoBoleto.innerHTML = "Gerando Boleto..."
@@ -418,7 +419,7 @@
         body: formdata,
         redirect: 'follow'
     };
-    fetch("https://devspace.com/controllers/smartController.php", requestOptions)
+    fetch("/controllers/smartController.php", requestOptions)
         .then(response => response.text())
         .then((result) => {
             var my_awesome_script = document.createElement('script');
@@ -439,7 +440,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://devspace.com/controllers/pixController.php", requestOptions)
+        fetch("/controllers/pixController.php", requestOptions)
             .then(response => response.text())
             .then((result) => {
 
