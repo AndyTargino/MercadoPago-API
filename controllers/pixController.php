@@ -3,7 +3,7 @@
 require('../config/config.php');
 require('../lib/vendor/autoload.php');
 
-MercadoPago\SDK::setAccessToken(SAND_TOKEN);
+MercadoPago\SDK::setAccessToken(PROD_TOKEN);
 
 $payment = new MercadoPago\Payment();
 $payment->transaction_amount = 100;

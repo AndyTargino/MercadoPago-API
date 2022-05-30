@@ -4,24 +4,22 @@ require('../lib/vendor/autoload.php');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-MercadoPago\SDK::setAccessToken(SAND_TOKEN);
+MercadoPago\SDK::setAccessToken(PROD_TOKEN);
 
 //Montar request de boleto e gerar novo boleto para pagamento
-
 $payment = new MercadoPago\Payment();
 $payment->transaction_amount = $data['transaction_amount'];
 $payment->description = $data['description'];
 $payment->payment_method_id = 'bolbradesco';
 $payment->payer = array(
     "email" => $data['payer']['email'],
-    "full_name" => $data['payer']['first_name'],
+    "first_name" =>  $data['payer']['first_name'],
     "last_name" => $data['payer']['last_name'],
     "identification" => array(
-        "type" => $data['payer']['identification']['type'],
+        "type" =>  $data['payer']['identification']['type'],
         "number" => $data['payer']['identification']['number']
     )
 );
-
 $payment->save();
 
 //Após o envio da request e obter sua resposta, mostre para o usuario os dados de retorno nessessários para salvar no banco de dados também
@@ -33,11 +31,12 @@ $status = $payment->status; //Status atual do pagamento
 $data['forma_pagamento'] = 'Boleto';
 if ($status == 'pending') {
     $status = 'Aguardando Pagamento';
-    $msg = "<p>Obrigado, <strong>" . $data['payer']['first_name'] . "</strong>!</p> <p>O status atual do seu pagamento via <strong>" . $data['forma_pagamento'] . "</strong> é <strong>" . $status . "</strong> e o código da transação junto ao MercadoPago é <strong>" . $id . "</strong>.</p> <p>O valor total é de <strong>" . $formated_total . ". </strong><a target='new' href=" . $url_boleto . ">Clique aqui</a> para imprimir o boleto.</p>";
+    $msg = "<p>Obrigado, <strong>" . $data['payer']['first_name'] . "</strong>!</p> <p>O status atual do seu pagamento via <strong>" . $data['forma_pagamento'] . "</strong> é <mark>" . $status . "</mark> e o código da transação junto ao MercadoPago é <mark>" . $id . "</mark>.</p> <p>O valor total é de <strong>" . $formated_total . ". </strong><a target='new' href=" . $url_boleto . ">Clique aqui</a> para imprimir o boleto.</p>";
     $response = (['status' => $status, 'status_detail' => $payment->status_detail, 'id' => $payment->id, 'mensagem' => $msg, 'boleto' => $url_boleto]);
     echo json_encode($response);
 } else {
+    $error = $payment;
     $msg = "<p>Ocorreu um erro ao gerar o boleto.</p>";
-    $response = (['status' => 400, 'mensagem' => $msg]);
+    $response = (['status' => 400, 'mensagem' => $msg, 'erro' => $error]);
     echo json_encode($response);
 }

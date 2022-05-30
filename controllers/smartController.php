@@ -9,7 +9,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 //MercadoPago\SDK from php composer.phar require "mercadopago/dx-php"
 
-MercadoPago\SDK::setAccessToken(SAND_TOKEN);
+MercadoPago\SDK::setAccessToken(PROD_TOKEN);
 
 $data = ($_POST);
 $preference = new MercadoPago\Preference();

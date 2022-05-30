@@ -5,7 +5,7 @@ require('../lib/vendor/autoload.php');
 Suas chaves de autenticação estão em: /config/config.php 
 */
 $data = json_decode(file_get_contents('php://input'), true);
-MercadoPago\SDK::setAccessToken(SAND_TOKEN);
+MercadoPago\SDK::setAccessToken(PROD_TOKEN);
 $payment = new MercadoPago\Payment();
 $payment->token = $data['token'];
 $payment->description = $data['description'];
