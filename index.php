@@ -37,7 +37,7 @@
     }
 
     h1.brand {
-        font-size: 40px;
+        font-size: 35px;
     }
 
     h1.brand span:nth-child(1) {
